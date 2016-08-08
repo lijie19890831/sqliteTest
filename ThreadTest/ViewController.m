@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-
+#import "ThirdViewController.h"
 @interface ViewController ()
 
 @end
@@ -17,7 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
    //创建主队列 主线程中执行的队列任务
-    dispatch_queue_t queue = dispatch_get_main_queue();
+   /* dispatch_queue_t queue = dispatch_get_main_queue();
     //自己创建队列 串行队列
     dispatch_queue_t queue1 = dispatch_queue_create("wtfee", DISPATCH_QUEUE_SERIAL);
     //自己创建队列 并行队列
@@ -39,23 +39,33 @@
     });*/
     
     //1.创建NSBlockOperation对象
-    NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
-        NSLog(@"%@", [NSThread currentThread]);
-    }];
+   // NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
+        //NSLog(@"%@", [NSThread currentThread]);
+    //}];
     
     //添加多个Block
-    for (NSInteger i = 0; i < 5; i++) {
+    /*for (NSInteger i = 0; i < 5; i++) {
         [operation addExecutionBlock:^{
             NSLog(@"第%ld次：%@", i, [NSThread currentThread]);
         }];
-    }
+    }*/
     
     //2.开始任务
-    [operation start];
-    //这一块是git的测试
+    //[operation start];
+    //这一块是git的测试/*
+    [self.view setBackgroundColor:[UIColor orangeColor]];
+    UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(100, 100, 100, 50)];
+    [btn setTitle:@"确定" forState:UIControlStateNormal];
+    [btn setBackgroundColor:[UIColor redColor]];
+    [self.view addSubview:btn];
+    [btn addTarget:self action:@selector(btnClicked:) forControlEvents:UIControlEventTouchUpInside ];
     
 }
-
+- (void)btnClicked:(UIButton *)btn
+{
+    ThirdViewController *vc = [[ThirdViewController alloc]init];
+    [self presentViewController:vc animated:YES completion:nil];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
